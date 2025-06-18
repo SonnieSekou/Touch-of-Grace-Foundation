@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Touch of Grace Foundation - Cameroon</title>
+    <style>
+        :root {
+            --primary: #4A89DC;  /* Compassion blue */
+            --secondary: #F6BB42;  /* Hope gold */
+            --accent: #37BC9B;  /* Growth green */
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+        .logo-container {
+            margin: 0 auto 1rem;
+            width: 150px;
+            height: 150px;
+        }
+        .logo-svg {
+            width: 100%;
+            height: 100%;
+        }
+        .lang-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .lang-btn {
+            background: white;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 2px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        nav {
+            background: var(--secondary);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--accent);
+        }
+        .icon-container {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 2rem 0;
+        }
+        .symbolic-card {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .symbolic-svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+        .donation-methods {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border: 1px solid #eee;
+        }
+        .method {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 5px;
+        }
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+        }
+        .hidden {
+            display: none;
+        }
+        form {
+            margin: 2rem 0;
+        }
+        form label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+            font-weight: 600;
+        }
+        form input, form textarea, form select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        form button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .blog-post {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2rem;
+        }
+        .blog-post h3 {
+            color: var(--primary);
+        }
+        .blog-date {
+            color: #666;
+            font-style: italic;
+        }
+        .print-btn {
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 1rem 0;
+        }
+        @media print {
+            nav, .lang-toggle, .print-btn {
+                display: none;
+            }
+            .donation-methods {
+                border: none;
+                box-shadow: none;
+            }
+        }
+        @media (max-width: 768px) {
+            nav a {
+                display: block;
+                margin: 10px 0;
+            }
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation for visual interest */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="lang-toggle">
+            <button class="lang-btn" onclick="toggleLanguage('en')">EN</button>
+            <button class="lang-btn" onclick="toggleLanguage('fr')">FR</button>
+        </div>
+        
+        <div class="logo-container">
+            <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Grace-inspired logo with hand and dove -->
+                <circle cx="50" cy="50" r="45" fill="white" />
+                <path d="M30,60 Q50,30 70,60 L50,80 Z" fill="var(--primary)" /> <!-- Hand -->
+                <path d="M50,30 Q60,15 70,30 Q75,40 65,45 Q70,55 50,50 Q30,55 35,45 Q25,40 30,30 Q40,15 50,30" 
+                      fill="var(--secondary)" /> <!-- Dove -->
+            </svg>
+        </div>
+        <h1 class="lang-en">Touch of Grace Foundation</h1>
+        <h1 class="lang-fr hidden">Fondation Touch of Grace</h1>
+        <p class="lang-en">Compassion in Action • Ngaoundéré, Cameroon</p>
+        <p class="lang-fr hidden">Compassion en Action • Ngaoundéré, Cameroun</p>
+    </header>
+
+    <nav>
+        <a href="#about" class="lang-en">About Us</a>
+        <a href="#about" class="lang-fr hidden">À Propos</a>
+        <a href="#programs" class="lang-en">Our Programs</a>
+        <a href="#programs" class="lang-fr hidden">Nos Programmes</a>
+        <a href="#blog" class="lang-en">Updates</a>
+        <a href="#blog" class="lang-fr hidden">Actualités</a>
+        <a href="#donate" class="lang-en">Donate</a>
+        <a href="#donate" class="lang-fr hidden">Faire un Don</a>
+        <a href="#volunteer" class="lang-en">Volunteer</a>
+        <a href="#volunteer" class="lang-fr hidden">Bénévole</a>
+        <a href="#contact" class="lang-en">Contact</a>
+        <a href="#contact" class="lang-fr hidden">Contact</a>
+    </nav>
+
+    <section class="hero">
+        <h2 class="lang-en">Transforming Lives Through Grace</h2>
+        <h2 class="lang-fr hidden">Transformer des Vies par la Grâce</h2>
+        <p class="lang-en">Education • Nutrition • Healthcare • Empowerment</p>
+        <p class="lang-fr hidden">Éducation • Nutrition • Santé • Autonomisation</p>
+    </section>
+
+    <div class="container">
+        <section id="about">
+            <h2 class="lang-en">About Our Foundation</h2>
+            <h2 class="lang-fr hidden">À Propos de Notre Fondation</h2>
+            
+            <div class="card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50,10 L90,50 L50,90 L10,50 Z" fill="var(--primary)" opacity="0.2"/>
+                        <path d="M50,20 L80,50 L50,80 L20,50 Z" fill="var(--primary)" opacity="0.5"/>
+                        <path d="M50,30 L70,50 L50,70 L30,50 Z" fill="var(--primary)"/>
+                        <circle cx="50" cy="50" r="15" fill="white"/>
+                        <path d="M45,45 L55,55 M45,55 L55,45" stroke="var(--primary)" stroke-width="3"/>
+                    </svg>
+                </div>
+                <p class="lang-en">Founded in 2024 in Ngaoundéré, Touch of Grace Foundation was born from a vision to extend God's grace to vulnerable communities through practical support and sustainable development initiatives.</p>
+                <p class="lang-fr hidden">Fondée en 2024 à Ngaoundéré, la Fondation Touch of Grace est née d'une vision d'étendre la grâce de Dieu aux communautés vulnérables à travers un soutien pratique et des initiatives de développement durable.</p>
+            </div>
+        </section>
+
+        <section id="programs">
+            <h2 class="lang-en">Our Initiatives</h2>
+            <h2 class="lang-fr hidden">Nos Initiatives</h2>
+            
+            <div class="card">
+                <h3 class="lang-en">Grace Education Program</h3>
+                <h3 class="lang-fr hidden">Programme d'Éducation Grace</h3>
+                <div class="icon-container floating">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="15" y="30" width="70" height="50" rx="5" fill="var(--secondary)" opacity="0.3"/>
+                        <rect x="20" y="35" width="60" height="40" rx="5" fill="var(--secondary)" opacity="0.6"/>
+                        <path d="M30,50 L50,50 M30,60 L50,60 M30,70 L50,70 M60,50 L70,50 M60,60 L70,60" stroke="var(--dark)" stroke-width="3"/>
+                        <path d="M40,20 L60,20 L70,30 L30,30 Z" fill="var(--secondary)"/>
+                    </svg>
+                </div>
+                <p class="lang-en">Providing school fees, uniforms, and tutoring to children in need, because every child deserves the grace of education.</p>
+                <p class="lang-fr hidden">Fourniture des frais de scolarité, uniformes et tutorat aux enfants dans le besoin, parce que chaque enfant mérite la grâce de l'éducation.</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="lang-en">Bread of Grace</h3>
+                <h3 class="lang-fr hidden">Pain de Grâce</h3>
+                <div class="icon-container floating" style="animation-delay: 0.5s">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="50" cy="60" rx="40" ry="25" fill="var(--accent)" opacity="0.3"/>
+                        <ellipse cx="50" cy="55" rx="35" ry="20" fill="var(--accent)" opacity="0.6"/>
+                        <path d="M30,50 Q50,40 70,50 Q65,60 50,65 Q35,60 30,50" fill="var(--accent)"/>
+                        <circle cx="40" cy="50" r="2" fill="white"/>
+                        <circle cx="50" cy="55" r="2" fill="white"/>
+                        <circle cx="60" cy="50" r="2" fill="white"/>
+                    </svg>
+                </div>
+                <p class="lang-en">Weekly food distributions and nutrition education - extending God's grace through nourishment.</p>
+                <p class="lang-fr hidden">Distributions alimentaires hebdomadaires et éducation nutritionnelle - étendant la grâce de Dieu à travers la nourriture.</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="lang-en">Healing Grace Medical</h3>
+                <h3 class="lang-fr hidden">Soins Médicaux Grâce</h3>
+                <div class="icon-container floating" style="animation-delay: 1s">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50,20 L80,50 L50,80 L20,50 Z" fill="var(--primary)" opacity="0.2"/>
+                        <path d="M50,40 L70,40 L70,60 L50,60 L50,80 L30,80 L30,60 L10,60 L10,40 L30,40 L30,20 L50,20 Z" fill="var(--primary)"/>
+                    </svg>
+                </div>
+                <p class="lang-en">Free medical checkups and health education - because health is God's grace made tangible.</p>
+                <p class="lang-fr hidden">Consultations médicales gratuites et éducation sanitaire - parce que la santé est la grâce de Dieu rendue tangible.</p>
+            </div>
+
+            <h3 class="lang-en">Symbols of Our Grace</h3>
+            <h3 class="lang-fr hidden">Symboles de Notre Grâce</h3>
+            <div class="gallery">
+                <div class="symbolic-card">
+                    <svg class="symbolic-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50,10 Q70,30 50,90 Q30,30 50,10" fill="var(--secondary)" opacity="0.7"/> <!-- Heart -->
+                        <path d="M50,30 L50,70 M30,50 L70,50" stroke="white" stroke-width="3"/> <!-- Cross -->
+                    </svg>
+                    <p class="lang-en">Compassionate Care</p>
+                    <p class="lang-fr hidden">Soins Compatissants</p>
+                </div>
+                <div class="symbolic-card">
+                    <svg class="symbolic-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20,50 Q50,10 80,50 Q50,70 20,50" fill="var(--accent)" opacity="0.7"/> <!-- Hands holding -->
+                        <circle cx="50" cy="35" r="10" fill="white"/>
+                    </svg>
+                    <p class="lang-en">Community Support</p>
+                    <p class="lang-fr hidden">Soutien Communautaire</p>
+                </div>
+                <div class="symbolic-card">
+                    <svg class="symbolic-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20,80 L50,20 L80,80 Z" fill="var(--primary)" opacity="0.7"/> <!-- Mountain -->
+                        <path d="M35,50 L50,35 L65,50" stroke="white" stroke-width="3" fill="none"/> <!-- Arrow up -->
+                    </svg>
+                    <p class="lang-en">Sustainable Growth</p>
+                    <p class="lang-fr hidden">Croissance Durable</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog">
+            <h2 class="lang-en">Latest Updates</h2>
+            <h2 class="lang-fr hidden">Dernières Actualités</h2>
+            
+            <div class="blog-post">
+                <h3 class="lang-en">Launching Our Education Program</h3>
+                <h3 class="lang-fr hidden">Lancement de Notre Programme Éducatif</h3>
+                <p class="blog-date">June 15, 2024</p>
+                <div class="icon-container" style="width: 50px; height: 50px; float: left; margin-right: 1rem;">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50,10 L90,50 L50,90 L10,50 Z" fill="var(--primary)" opacity="0.2"/>
+                        <path d="M50,30 L70,50 L50,70 L30,50 Z" fill="var(--primary)"/>
+                    </svg>
+                </div>
+                <p class="lang-en">We're excited to announce the launch of our education initiative, starting with 20 children in Ngaoundéré. Our goal is to...</p>
+                <p class="lang-fr hidden">Nous sommes ravis d'annoncer le lancement de notre initiative éducative, commençant avec 20 enfants à Ngaoundéré. Notre objectif est...</p>
+                <a href="#" class="lang-en">Read more →</a>
+                <a href="#" class="lang-fr hidden">Lire plus →</a>
+            </div>
+            
+            <div class="blog-post">
+                <h3 class="lang-en">First Food Distribution Success</h3>
+                <h3 class="lang-fr hidden">Succès de la Première Distribution de Nourriture</h3>
+                <p class="blog-date">May 28, 2024</p>
+                <div class="icon-container" style="width: 50px; height: 50px; float: left; margin-right: 1rem;">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="50" cy="60" rx="40" ry="25" fill="var(--accent)" opacity="0.3"/>
+                        <path d="M30,50 Q50,40 70,50 Q65,60 50,65 Q35,60 30,50" fill="var(--accent)"/>
+                    </svg>
+                </div>
+                <p class="lang-en">Our first nutrition program served 50 families in the Ngaoundéré community. Volunteers distributed...</p>
+                <p class="lang-fr hidden">Notre premier programme nutritionnel a servi 50 familles dans la communauté de Ngaoundéré. Les bénévoles ont distribué...</p>
+                <a href="#" class="lang-en">Read more →</a>
+                <a href="#" class="lang-fr hidden">Lire plus →</a>
+            </div>
+        </section>
+
+        <section id="donate">
+            <h2 class="lang-en">Extend Grace Through Giving</h2>
+            <h2 class="lang-fr hidden">Étendez la Grâce par le Don</h2>
+            
+            <div class="donation-methods">
+                <div class="icon-container">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="15" y="25" width="70" height="50" rx="5" fill="var(--secondary)"/>
+                        <circle cx="50" cy="50" r="20" fill="white"/>
+                        <path d="M50,30 L50,70 M30,50 L70,50" stroke="var(--secondary)" stroke-width="5"/>
+                        <text x="50" y="20" text-anchor="middle" font-size="10" fill="white">Mobile Money</text>
+                    </svg>
+                </div>
+                
+                <button class="print-btn lang-en" onclick="window.print()">Print Donation Form</button>
+                <button class="print-btn lang-fr hidden" onclick="window.print()">Imprimer le Formulaire</button>
+                
+                <div class="method">
+                    <h4 class="lang-en">MTN Mobile Money</h4>
+                    <h4 class="lang-fr hidden">MTN Mobile Money</h4>
+                    <p>Number: <strong>+237 650 760 516</strong></p>
+                    <p class="lang-en">Name: TOUCH OF GRACE FOUNDATION</p>
+                    <p class="lang-fr hidden">Nom: FONDATION TOUCH OF GRACE</p>
+                </div>
+                
+                <div class="method">
+                    <h4 class="lang-en">Orange Money</h4>
+                    <h4 class="lang-fr hidden">Orange Money</h4>
+                    <p class="lang-en">Coming soon - contact us for details</p>
+                    <p class="lang-fr hidden">Bientôt disponible - contactez-nous</p>
+                </div>
+                
+                <div class="method">
+                    <h4 class="lang-en">Bank Transfer</h4>
+                    <h4 class="lang-fr hidden">Virement Bancaire</h4>
+                    <p class="lang-en">Ecobank Cameroon - Account details available upon request</p>
+                    <p class="lang-fr hidden">Ecobank Cameroun - Détails disponibles sur demande</p>
+                </div>
+                
+                <div class="method" id="print-form">
+                    <h4 class="lang-en">Donation Form</h4>
+                    <h4 class="lang-fr hidden">Formulaire de Don</h4>
+                    <p class="lang-en"><strong>Donor Information:</strong></p>
+                    <p class="lang-fr hidden"><strong>Information du Donateur:</strong></p>
+                    <p class="lang-en">Name: ______________________________</p>
+                    <p class="lang-fr hidden">Nom: ______________________________</p>
+                    <p class="lang-en">Email: ______________________________</p>
+                    <p class="lang-en">Phone: ______________________________</p>
+                    <p class="lang-fr hidden">Téléphone: ______________________________</p>
+                    <p class="lang-en">Amount: _________ XAF</p>
+                    <p class="lang-fr hidden">Montant: _________ XAF</p>
+                    <p class="lang-en">Payment Method: □ MTN Mobile Money □ Orange Money □ Bank Transfer</p>
+                    <p class="lang-fr hidden">Méthode de Paiement: □ MTN Mobile Money □ Orange Money □ Virement Bancaire</p>
+                    <p class="lang-en">Purpose: □ Education □ Nutrition □ Healthcare □ General Support</p>
+                    <p class="lang-fr hidden">Objectif: □ Éducation □ Nutrition □ Santé □ Soutien Général</p>
+                </div>
+                
+                <p class="lang-en" style="font-style: italic; margin-top: 2rem;">"Each gift, no matter the size, extends God's grace to those in need."</p>
+                <p class="lang-fr hidden" style="font-style: italic; margin-top: 2rem;">"Chaque don, quelle que soit sa taille, étend la grâce de Dieu à ceux dans le besoin."</p>
+            </div>
+        </section>
+
+        <section id="volunteer">
+            <h2 class="lang-en">Join Us as a Volunteer</h2>
+            <h2 class="lang-fr hidden">Rejoignez-nous comme Bénévole</h2>
+            
+            <div class="card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="30" r="20" fill="var(--secondary)"/>
+                        <path d="M50,50 L50,90 M30,70 L70,70" stroke="var(--secondary)" stroke-width="8" stroke-linecap="round"/>
+                        <circle cx="40" cy="25" r="2" fill="white"/>
+                        <circle cx="60" cy="25" r="2" fill="white"/>
+                        <path d="M40,35 Q50,40 60,35" stroke="white" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+                
+                <form id="volunteer-form">
+                    <label for="name" class="lang-en">Full Name</label>
+                    <label for="name" class="lang-fr hidden">Nom Complet</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email" class="lang-en">Email</label>
+                    <label for="email" class="lang-fr hidden">Email</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="phone" class="lang-en">Phone Number</label>
+                    <label for="phone" class="lang-fr hidden">Numéro de Téléphone</label>
+                    <input type="tel" id="phone" name="phone" required>
+                    
+                    <label for="interest" class="lang-en">Area of Interest</label>
+                    <label for="interest" class="lang-fr hidden">Domaine d'Intérêt</label>
+                    <select id="interest" name="interest">
+                        <option value="education" class="lang-en">Education Program</option>
+                        <option value="education" class="lang-fr hidden">Programme Éducatif</option>
+                        <option value="nutrition" class="lang-en">Nutrition Program</option>
+                        <option value="nutrition" class="lang-fr hidden">Programme Nutritionnel</option>
+                        <option value="healthcare" class="lang-en">Healthcare Program</option>
+                        <option value="healthcare" class="lang-fr hidden">Programme de Santé</option>
+                        <option value="fundraising" class="lang-en">Fundraising</option>
+                        <option value="fundraising" class="lang-fr hidden">Collecte de Fonds</option>
+                    </select>
+                    
+                    <label for="message" class="lang-en">Why do you want to volunteer with us?</label>
+                    <label for="message" class="lang-fr hidden">Pourquoi voulez-vous faire du bénévolat avec nous?</label>
+                    <textarea id="message" name="message" rows="4"></textarea>
+                    
+                    <button type="submit" class="lang-en">Submit Application</button>
+                    <button type="submit" class="lang-fr hidden">Soumettre la Demande</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2 class="lang-en">Contact the Hands of Grace</h2>
+            <h2 class="lang-fr hidden">Contactez les Mains de Grâce</h2>
+            
+            <div class="card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M85,30 L50,60 L15,30" fill="none" stroke="var(--primary)" stroke-width="3"/>
+                        <rect x="15" y="30" width="70" height="50" rx="5" fill="var(--light)" stroke="var(--primary)" stroke-width="2"/>
+                        <path d="M30,40 L70,40 M30,50 L70,50 M30,60 L50,60" stroke="var(--primary)" stroke-width="2"/>
+                    </svg>
+                </div>
+                
+                <div class="contact-info">
+                    <p><strong class="lang-en">Email:</strong><strong class="lang-fr hidden">Email:</strong> <a href="mailto:sonniesekoujr@gmail.com">sonniesekoujr@gmail.com</a></p>
+                    <p><strong class="lang-en">Phone/WhatsApp:</strong><strong class="lang-fr hidden">Téléphone/WhatsApp:</strong> <a href="tel:+237650760516">+237 650 760 516</a></p>
+                    <p><strong class="lang-en">Address:</strong><strong class="lang-fr hidden">Adresse:</strong> Ngaoundéré, Adamawa Region, Cameroon</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <svg width="100" height="20" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,10 Q25,20 50,10 T100,10" fill="none" stroke="white" stroke-width="1"/>
+        </svg>
+        <p>&copy; 2024 Touch of Grace Foundation. <span class="lang-en">All rights reserved.</span><span class="lang-fr hidden">Tous droits réservés.</span></p>
+        <p class="lang-en">Registered NGO in Cameroon</p>
+        <p class="lang-fr hidden">ONG enregistrée au Cameroun</p>
+    </footer>
+
+    <script>
+        function toggleLanguage(lang) {
+            document.querySelectorAll('.lang-' + (lang === 'en' ? 'fr' : 'en')).forEach(el => {
+                el.classList.add('hidden');
+            });
+            document.querySelectorAll('.lang-' + lang).forEach(el => {
+                el.classList.remove('hidden');
+            });
+        }
+        
+        // Initialize with English
+        toggleLanguage('en');
+        
+        // Handle form submission
+        document.getElementById('volunteer-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert(document.querySelector('.lang-en:not(.hidden)') ? 
+                  "Thank you! We'll contact you soon." : 
+                  "Merci! Nous vous contacterons bientôt.");
+            this.reset();
+        });
+    </script>
+</body>
+</html>
